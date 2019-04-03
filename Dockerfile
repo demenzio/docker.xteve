@@ -18,7 +18,7 @@ RUN echo "**** upgrade system ****" && \
         unzip ${BUILD_DIR}/xteve_linux.zip -d ${APPDIR}/ && \
         #adduser -D -H app && \
         #echo 'app:pwstr' | chpasswd && \
-        rm -rf /config && \
+        #rm -rf /config && \
         chown -R app:app ${APPDIR} && \
         chmod -R 770 ${APPDIR} && \
         #chmod +x ${APPDIR}/xteve && \
