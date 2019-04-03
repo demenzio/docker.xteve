@@ -27,6 +27,8 @@ RUN echo "**** upgrade system ****" && \
 
 ADD rootfs /
 
+WORKDIR ${APPDIR}
+
 ENTRYPOINT [ "/init" ]
 
 EXPOSE 8080
