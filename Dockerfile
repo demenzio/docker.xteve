@@ -36,7 +36,7 @@ WORKDIR ${APPDIR}
 
 EXPOSE 8080
 
-HEALTHCHECK --interval=15s --timeout=3s \
+HEALTHCHECK --interval=5m --timeout=3s \
   CMD curl -f http://localhost:8080/web || exit 1
 
 ENTRYPOINT [ "/init" ]
