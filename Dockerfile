@@ -12,6 +12,8 @@ RUN echo "**** upgrade system ****" && \
         apk upgrade --no-cache && \
     echo "**** install build packages ****" && \
         apk add --no-cache --virtual .install-pkg unzip && \
+    echo "**** install curl for healthcheck ****" && \
+        apk add --no-cache curl && \
     echo "**** install XTEVE ****" && \
         unzip ${BUILD_DIR}/xteve_linux.zip -d ${APPDIR}/ && \
         #adduser -D -H app && \
@@ -29,10 +31,13 @@ ADD rootfs /
 
 WORKDIR ${APPDIR}
 
-VOLUME [ "/app/config" ]
-VOLUME [ "/tmp/xteve" ]
-
-ENTRYPOINT [ "/init" ]
+#VOLUME [ "/app/config" ]
+#VOLUME [ "/tmp/xteve" ]
 
 EXPOSE 8080
+
+HEALTHCHECK --interval=15s --timeout=3s \
+  CMD curl -f http://localhost:8080/web || exit 1
+
+ENTRYPOINT [ "/init" ]
 
