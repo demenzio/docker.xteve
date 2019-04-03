@@ -29,6 +29,9 @@ ADD rootfs /
 
 WORKDIR ${APPDIR}
 
+VOLUME [ "/app/config" ]
+VOLUME [ "/tmp/xteve" ]
+
 ENTRYPOINT [ "/init" ]
 
 EXPOSE 8080
