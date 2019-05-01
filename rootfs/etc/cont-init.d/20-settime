@@ -1,0 +1,34 @@
+#!/usr/bin/with-contenv bash
+
+function oslookup {
+    local stage1=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+    local stage2=${stage1//\"}
+    local output=${stage2//Linux}
+    echo "$output"
+}
+
+OS="$(oslookup)"
+
+if [ -n "${TZ}" ];
+then
+    echo 
+    echo "Setting Timezone ($TZ) > /etc/timezone"
+    echo $TZ > /etc/timezone
+    echo "Linking Zoneinfo ($TZ) > /etc/localtime"
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+    echo 
+    if [ $OS = "Alpine" ];
+    then
+        echo "OS is Alpine. No Reconfiguring needed. Skipping step."
+    else 
+        echo "OS is NOT Alpine. Reconfiguring needed."
+        dpkg-reconfigure -f noninteractive tzdata
+    fi
+    echo 
+    echo "Done."
+else
+    echo "ATTENTION - No Timezone set."
+    echo "Please set timezone via TZ ENV"
+    echo
+    echo "Done."
+fi
