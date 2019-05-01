@@ -1,2 +1,2 @@
-# xTeVe v. 1.4.3
+# xTeVe v. 1.4.4
 Dockerfile for building image of xTeVe.
