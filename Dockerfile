@@ -1,6 +1,6 @@
 FROM xuvin/s6overlay:alpine-v1.22.1.0
 
-ARG VERSION=1.4.3
+ARG VERSION=1.4.4
 ARG DOWN_LINK=https://xteve.de/download/xteve_linux.zip 
 ARG BUILD_DIR=/tmp/build
 
