@@ -1,7 +1,8 @@
 FROM xuvin/s6overlay:alpine-v1.22.1.0
 
 ARG VERSION=1.4.4
-ARG DOWN_LINK=https://xteve.de/download/xteve_linux.zip 
+ARG PKGNAME=xteve_linux_arm64
+ARG DOWN_LINK=https://xteve.de/download/${PKGNAME}.zip
 ARG BUILD_DIR=/tmp/build
 
 ENV APPDIR=/app
@@ -15,7 +16,7 @@ RUN echo "**** upgrade system ****" && \
     echo "**** install curl for healthcheck ****" && \
         apk add --no-cache curl && \
     echo "**** install XTEVE ****" && \
-        unzip ${BUILD_DIR}/xteve_linux.zip -d ${APPDIR}/ && \
+        unzip ${BUILD_DIR}/${PKGNAME}.zip -d ${APPDIR}/ && \
         #adduser -D -H app && \
         #echo 'app:pwstr' | chpasswd && \
         #rm -rf /config && \
