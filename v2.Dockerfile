@@ -1,4 +1,4 @@
-FROM xuvin/s6overlay:alpine-v1.22.1.0
+FROM xuvin/s6overlay:alpine-latest
 
 ARG VERSION=2.0.0
 ARG PKGNAME=xteve_2_linux_amd64
