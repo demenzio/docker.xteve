@@ -16,7 +16,7 @@ pipeline{
         stage("Clone"){
             steps{
                 script{
-                    newVersion = sh(label: 'Get Latest Release Version',script: 'curl --silent "https://api.github.com/repos/${repoPATH}/releases" | grep \'"tag_name":\' | sed -E \'s/.*"([^"]+)".*/\\1/\' | cut -c 2- | awk \'NR==1{print $1}\'', returnStdout: true).trim()
+                    newVersion = sh(label: 'Get Latest Release Version',script: 'curl --silent "https://api.github.com/repos/${repoPATH}/releases" | grep \'"tag_name":\' | sed -E \'s/.*"([^"]+)".*/\\1/\' | cut -c 2- | sed \'s/.\\{5\\}$//\' | awk \'NR==1{print $1}\'', returnStdout: true).trim()
                 }
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} for Version ${newVersion}"
                 // checkout scm
