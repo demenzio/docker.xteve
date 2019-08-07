@@ -101,7 +101,7 @@ pipeline{
         }
         failure{
             sh (label: 'Sending Notification with Status 2', script: 'curl -s --form-string "token=${pushOverAPIAPPToken}" --form-string "user=${pushOverAPIUserKey}" --form-string "priority=2" --form-string "retry=30" --form-string "expire=10800" --form-string "title=${registry} - Status 2" --form-string "message=Build for ${registry} - Failure" https://api.pushover.net/1/messages.json', returnStdout: true)
-            sh (label: "Removing all created images of ${registry}:${newVersion}", script: "docker rmi -f ${registry}:${newVersion} && docker push docker rmi -f ${registry}:latest || exit 0")
+            sh (label: "Removing all created images of ${registry}:${newVersion}", script: "docker rmi -f ${registry}:${newVersion} && docker rmi -f ${registry}:latest || exit 0")
         }
         aborted{
             sh (label: 'Sending Notification with Status 1', script: 'curl -s --form-string "token=${pushOverAPIAPPToken}" --form-string "user=${pushOverAPIUserKey}" --form-string "priority=1" --form-string "title=${registry} - Status 1" --form-string "message=Build for ${registry} - Aborted" https://api.pushover.net/1/messages.json', returnStdout: true)
