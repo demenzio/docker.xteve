@@ -10,19 +10,19 @@ ENV APPDIR=/app
 ADD ${DOWN_LINK} ${BUILD_DIR}/
 
 RUN echo "**** upgrade system ****" && \
-        apk upgrade --no-cache && \
+    apk upgrade --no-cache && \
     echo "**** install build packages ****" && \
-        apk add --no-cache --virtual .install-pkg unzip && \
-    echo "**** install curl for healthcheck ****" && \
-        apk add --no-cache curl && \
+    apk add --no-cache --virtual .install-pkg unzip && \
+    echo "**** install curl for healthcheck and ffmpeg for buffering****" && \
+    apk add --no-cache curl ffmpeg && \
     echo "**** install XTEVE ****" && \
-        unzip ${BUILD_DIR}/${PKGNAME}.zip -d ${APPDIR}/ && \
-        chown -R app:app ${APPDIR} && \
-        chmod -R 770 ${APPDIR} && \
+    unzip ${BUILD_DIR}/${PKGNAME}.zip -d ${APPDIR}/ && \
+    chown -R app:app ${APPDIR} && \
+    chmod -R 770 ${APPDIR} && \
     echo "**** clean up ****" && \
-        apk del .install-pkg && \
-        rm -rf /var/cache/apk/* && \
-        rm -rf /tmp/*
+    apk del .install-pkg && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
 
 ADD rootfs /
 
@@ -34,7 +34,7 @@ WORKDIR ${APPDIR}
 EXPOSE 8080
 
 HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost:33440/web || exit 1
+    CMD curl -f http://localhost:33440/web || exit 1
 
 ENTRYPOINT [ "/init" ]
 
