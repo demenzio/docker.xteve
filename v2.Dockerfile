@@ -1,8 +1,8 @@
 FROM xuvin/s6overlay:alpine-latest
 
 ARG VERSION=2.0.0
-ARG PKGNAME=xteve_2_linux_amd64
-ARG DOWN_LINK=https://xteve.de/download/${PKGNAME}.zip
+ARG PKGNAME=xteve_linux_amd64
+ARG DOWN_LINK=https://github.com/xteve-project/xTeVe-Downloads/blob/master/${PKGNAME}.zip?raw=true
 ARG BUILD_DIR=/tmp/build
 
 ENV APPDIR=/app
